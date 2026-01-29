@@ -9,8 +9,8 @@ const AdBox = ({ position = "sidebar" }) => {
       className={`ad-box ad-box-${position}`}
     >
       <div className="ad-box-content">
-        <p style={{ fontSize: "0.85rem", color: "#999", fontWeight: "400" }}>
-          Emplacement publicitaire 300×600
+        <p style={{ fontSize: "1.2rem", color: "#dd4f4f", fontWeight: "700" }}>
+          EMPLACEMENT PUBLICITAIRE 300×600
         </p>
       </div>
     </motion.div>
