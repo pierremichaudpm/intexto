@@ -635,14 +635,10 @@
 }
 
 .filter-bar .container {
-    background: linear-gradient(
-        90deg,
-        rgba(221, 79, 79, 0.04) 0%,
-        rgba(221, 153, 51, 0.04) 100%
-    );
+    background: transparent;
     padding: 1rem 2rem;
     border-radius: 12px;
-    border: 1px solid rgba(221, 79, 79, 0.15);
+    border: none;
     display: flex;
     gap: 1rem;
     justify-content: center;
