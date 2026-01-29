@@ -60,15 +60,15 @@ const HeroSection = ({ onContentClick }) => {
       <div className="hero-container-new">
         {/* Main Carousel */}
         <div className="hero-main-carousel">
-          <AnimatePresence initial={false} mode="wait">
+          <AnimatePresence initial={false}>
             <motion.div
               key={currentIndex}
-              initial={{ opacity: 0, scale: 1.02 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{
-                duration: 2,
-                ease: [0.25, 0.1, 0.25, 1],
+                duration: 1.2,
+                ease: [0.4, 0, 0.2, 1],
               }}
               className="hero-main-slide"
               onClick={() => onContentClick(current)}
