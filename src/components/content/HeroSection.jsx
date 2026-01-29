@@ -90,12 +90,6 @@ const HeroSection = ({ onContentClick }) => {
                   {categoryLabels[current.category]}
                 </span>
                 <h2 className="hero-main-title">{current.title}</h2>
-                <p className="hero-main-excerpt">{current.excerpt}</p>
-                <div className="hero-main-meta">
-                  <span className="hero-main-author">{current.author}</span>
-                  <span>•</span>
-                  <span>{cmsService.formatDate(current.date)}</span>
-                </div>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -105,13 +99,13 @@ const HeroSection = ({ onContentClick }) => {
             className="hero-nav-btn hero-nav-left"
             onClick={() => paginate(-1)}
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={16} />
           </button>
           <button
             className="hero-nav-btn hero-nav-right"
             onClick={() => paginate(1)}
           >
-            <ChevronRight size={20} />
+            <ChevronRight size={16} />
           </button>
 
           {/* Dots */}
