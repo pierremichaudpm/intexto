@@ -383,7 +383,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 1rem 1rem 1rem 4rem;
+    padding: 1rem 1rem 1rem 4.5rem;
     color: white;
     z-index: 10;
 }
@@ -392,8 +392,8 @@
     position: absolute;
     bottom: 1rem;
     left: 1rem;
-    width: 36px;
-    height: 36px;
+    width: 46px;
+    height: 46px;
     background: white;
     border-radius: 50%;
     display: flex;
@@ -420,6 +420,19 @@
     margin-bottom: 0.5rem;
     color: white;
     text-shadow: none;
+}
+
+.hero-side-category {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    background: rgba(221, 79, 79, 0.95);
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+    color: white;
 }
 
 .hero-side-meta {

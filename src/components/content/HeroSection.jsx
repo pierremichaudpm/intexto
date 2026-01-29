@@ -143,8 +143,8 @@ const HeroSection = ({ onContentClick }) => {
                 <div className="hero-side-gradient" />
                 <div className="hero-side-media-badge">
                   <svg
-                    width="16"
-                    height="16"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                   >
@@ -153,6 +153,7 @@ const HeroSection = ({ onContentClick }) => {
                 </div>
               </div>
               <div className="hero-side-content">
+                <span className="hero-side-category">VIDÉO</span>
                 <h3 className="hero-side-title">{featuredVideo.title}</h3>
                 <div className="hero-side-meta">
                   <span>{featuredVideo.author}</span>
@@ -178,16 +179,17 @@ const HeroSection = ({ onContentClick }) => {
                 <div className="hero-side-gradient" />
                 <div className="hero-side-media-badge">
                   <svg
-                    width="16"
-                    height="16"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                   >
-                    <path d="M8 5v14l11-7z" />
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-3.5h4v-9h-4v9z" />
                   </svg>
                 </div>
               </div>
               <div className="hero-side-content">
+                <span className="hero-side-category">AUDIO</span>
                 <h3 className="hero-side-title">{featuredAudio.title}</h3>
                 <div className="hero-side-meta">
                   <span>{featuredAudio.author}</span>
