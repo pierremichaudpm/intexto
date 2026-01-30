@@ -376,7 +376,15 @@ class CMSService {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
-        return JSON.parse(stored);
+        const data = JSON.parse(stored);
+        // Force refresh if data is outdated (has fewer than 20 items)
+        if (data.length < 20) {
+          console.log("Refreshing data with new content...");
+          const initial = this.getInitialData();
+          this.saveToLocalStorage(initial);
+          return initial;
+        }
+        return data;
       }
       const initial = this.getInitialData();
       this.saveToLocalStorage(initial);
