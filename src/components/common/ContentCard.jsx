@@ -30,7 +30,12 @@ const ContentCard = ({ content, onClick, delay = 0 }) => {
       onClick={() => onClick(content)}
     >
       <div className="content-card-image-wrapper">
-        <img src={image} alt={title} className="content-card-image" />
+        <img
+          src={image}
+          alt={title}
+          className="content-card-image"
+          loading="lazy"
+        />
         {type === "video" && (
           <div className="content-card-media-icon">
             <Video size={24} />

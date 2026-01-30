@@ -9,6 +9,7 @@ import ContentModal from "../components/common/ContentModal";
 import AdBanner from "../components/ads/AdBanner";
 import AdBox from "../components/ads/AdBox";
 import MagazineWidget from "../components/widgets/MagazineWidget";
+import SEOHead from "../components/seo/SEOHead";
 
 const typeFilters = [
   { id: "all", label: "Tous" },
@@ -59,6 +60,8 @@ const HomePage = () => {
 
   return (
     <>
+      <SEOHead />
+
       {/* Hero Section */}
       <HeroSection onContentClick={handleContentClick} />
 

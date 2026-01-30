@@ -12,6 +12,8 @@ import Plyr from "plyr";
 import "plyr/dist/plyr.css";
 import { useContent } from "../../context/ContentContext";
 import cmsService from "../../services/cmsService";
+import SEOHead from "../seo/SEOHead";
+import StructuredData from "../seo/StructuredData";
 
 const categoryColors = {
   actualite: "#0f0600",
@@ -138,140 +140,157 @@ const ContentModal = ({ content, isOpen, onClose }) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="modal-overlay"
-          onClick={handleOverlayClick}
-        >
+        <>
+          <SEOHead
+            title={`${title} | Intexto`}
+            description={excerpt}
+            image={image}
+            type={type === "article" ? "article" : "website"}
+            author={author}
+            publishedTime={date}
+          />
+          <StructuredData content={content} />
           <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 50, opacity: 0 }}
-            transition={{ type: "spring", damping: 25 }}
-            className="modal-content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="modal-overlay"
+            onClick={handleOverlayClick}
           >
-            <button className="modal-close" onClick={onClose}>
-              <X size={24} />
-            </button>
+            <motion.div
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 50, opacity: 0 }}
+              transition={{ type: "spring", damping: 25 }}
+              className="modal-content"
+            >
+              <button className="modal-close" onClick={onClose}>
+                <X size={24} />
+              </button>
 
-            <img src={image} alt={title} className="modal-image" />
+              <img
+                src={image}
+                alt={title}
+                className="modal-image"
+                loading="eager"
+              />
 
-            <div className="modal-body">
-              <span
-                className="content-card-category"
-                style={{ backgroundColor: categoryColors[category] }}
-              >
-                {categoryLabels[category]}
-              </span>
-
-              <h1 className="modal-title">{title}</h1>
-
-              <div className="modal-meta">
-                <span>
-                  <strong>{author}</strong>
+              <div className="modal-body">
+                <span
+                  className="content-card-category"
+                  style={{ backgroundColor: categoryColors[category] }}
+                >
+                  {categoryLabels[category]}
                 </span>
-                <span>{cmsService.formatDate(date)}</span>
-              </div>
 
-              {/* Social Sharing Buttons */}
-              <div className="modal-share">
-                <div className="modal-share-label">
-                  <Share2 size={16} />
-                  <span>Partager:</span>
+                <h1 className="modal-title">{title}</h1>
+
+                <div className="modal-meta">
+                  <span>
+                    <strong>{author}</strong>
+                  </span>
+                  <span>{cmsService.formatDate(date)}</span>
                 </div>
-                <div className="modal-share-buttons">
-                  <button
-                    className="modal-share-btn facebook"
-                    onClick={() => handleShare("facebook")}
-                    title="Partager sur Facebook"
-                  >
-                    <Facebook size={18} />
-                  </button>
-                  <button
-                    className="modal-share-btn twitter"
-                    onClick={() => handleShare("twitter")}
-                    title="Partager sur Twitter"
-                  >
-                    <Twitter size={18} />
-                  </button>
-                  <button
-                    className="modal-share-btn linkedin"
-                    onClick={() => handleShare("linkedin")}
-                    title="Partager sur LinkedIn"
-                  >
-                    <Linkedin size={18} />
-                  </button>
-                  <button
-                    className="modal-share-btn whatsapp"
-                    onClick={() => handleShare("whatsapp")}
-                    title="Partager sur WhatsApp"
-                  >
-                    <MessageCircle size={18} />
-                  </button>
-                </div>
-              </div>
 
-              {type === "video" && mediaUrl && (
-                <div className="modal-media-player">
-                  <video ref={videoRef} controls playsInline>
-                    <source src={mediaUrl} type="video/mp4" />
-                  </video>
-                </div>
-              )}
-
-              {type === "audio" && mediaUrl && (
-                <div className="modal-media-player">
-                  <audio ref={audioRef} controls>
-                    <source src={mediaUrl} type="audio/mp3" />
-                  </audio>
-                </div>
-              )}
-
-              <div className="modal-text">{content.content}</div>
-
-              {/* Related Stories */}
-              {relatedStories.length > 0 && (
-                <div className="modal-related">
-                  <h3 className="modal-related-title">Articles suggérés</h3>
-                  <div className="modal-related-grid">
-                    {relatedStories.map((story) => (
-                      <div
-                        key={story.id}
-                        className="modal-related-item"
-                        onClick={() => {
-                          onClose();
-                          setTimeout(() => window.location.reload(), 100);
-                        }}
-                      >
-                        <img
-                          src={story.image}
-                          alt={story.title}
-                          className="modal-related-image"
-                        />
-                        <div className="modal-related-content">
-                          <span
-                            className="modal-related-category"
-                            style={{
-                              backgroundColor: categoryColors[story.category],
-                            }}
-                          >
-                            {categoryLabels[story.category]}
-                          </span>
-                          <h4 className="modal-related-title-text">
-                            {story.title}
-                          </h4>
-                          <p className="modal-related-meta">{story.author}</p>
-                        </div>
-                      </div>
-                    ))}
+                {/* Social Sharing Buttons */}
+                <div className="modal-share">
+                  <div className="modal-share-label">
+                    <Share2 size={16} />
+                    <span>Partager:</span>
+                  </div>
+                  <div className="modal-share-buttons">
+                    <button
+                      className="modal-share-btn facebook"
+                      onClick={() => handleShare("facebook")}
+                      title="Partager sur Facebook"
+                    >
+                      <Facebook size={18} />
+                    </button>
+                    <button
+                      className="modal-share-btn twitter"
+                      onClick={() => handleShare("twitter")}
+                      title="Partager sur Twitter"
+                    >
+                      <Twitter size={18} />
+                    </button>
+                    <button
+                      className="modal-share-btn linkedin"
+                      onClick={() => handleShare("linkedin")}
+                      title="Partager sur LinkedIn"
+                    >
+                      <Linkedin size={18} />
+                    </button>
+                    <button
+                      className="modal-share-btn whatsapp"
+                      onClick={() => handleShare("whatsapp")}
+                      title="Partager sur WhatsApp"
+                    >
+                      <MessageCircle size={18} />
+                    </button>
                   </div>
                 </div>
-              )}
-            </div>
+
+                {type === "video" && mediaUrl && (
+                  <div className="modal-media-player">
+                    <video ref={videoRef} controls playsInline>
+                      <source src={mediaUrl} type="video/mp4" />
+                    </video>
+                  </div>
+                )}
+
+                {type === "audio" && mediaUrl && (
+                  <div className="modal-media-player">
+                    <audio ref={audioRef} controls>
+                      <source src={mediaUrl} type="audio/mp3" />
+                    </audio>
+                  </div>
+                )}
+
+                <div className="modal-text">{content.content}</div>
+
+                {/* Related Stories */}
+                {relatedStories.length > 0 && (
+                  <div className="modal-related">
+                    <h3 className="modal-related-title">Articles suggérés</h3>
+                    <div className="modal-related-grid">
+                      {relatedStories.map((story) => (
+                        <div
+                          key={story.id}
+                          className="modal-related-item"
+                          onClick={() => {
+                            onClose();
+                            setTimeout(() => window.location.reload(), 100);
+                          }}
+                        >
+                          <img
+                            src={story.image}
+                            alt={story.title}
+                            className="modal-related-image"
+                            loading="lazy"
+                          />
+                          <div className="modal-related-content">
+                            <span
+                              className="modal-related-category"
+                              style={{
+                                backgroundColor: categoryColors[story.category],
+                              }}
+                            >
+                              {categoryLabels[story.category]}
+                            </span>
+                            <h4 className="modal-related-title-text">
+                              {story.title}
+                            </h4>
+                            <p className="modal-related-meta">{story.author}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </>
       )}
     </AnimatePresence>
   );
