@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
@@ -14,6 +14,7 @@ import { useContent } from "../../context/ContentContext";
 import cmsService from "../../services/cmsService";
 import SEOHead from "../seo/SEOHead";
 import StructuredData from "../seo/StructuredData";
+import Header from "../layout/Header";
 
 const categoryColors = {
   actualite: "#0f0600",
@@ -34,6 +35,15 @@ const ContentModal = ({ content, isOpen, onClose }) => {
   const videoRef = useRef(null);
   const audioRef = useRef(null);
   const playerRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if mobile
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Initialize Plyr when modal opens with media
   useEffect(() => {
@@ -157,6 +167,14 @@ const ContentModal = ({ content, isOpen, onClose }) => {
             className="modal-overlay"
             onClick={handleOverlayClick}
           >
+            {isMobile && (
+              <div className="modal-header-wrapper">
+                <Header hideSearch={true} />
+                <button className="modal-close modal-close-mobile" onClick={onClose}>
+                  <X size={24} />
+                </button>
+              </div>
+            )}
             <motion.div
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -164,9 +182,11 @@ const ContentModal = ({ content, isOpen, onClose }) => {
               transition={{ type: "spring", damping: 25 }}
               className="modal-content"
             >
-              <button className="modal-close" onClick={onClose}>
-                <X size={24} />
-              </button>
+              {!isMobile && (
+                <button className="modal-close" onClick={onClose}>
+                  <X size={24} />
+                </button>
+              )}
 
               <img
                 src={image}
@@ -251,23 +271,41 @@ const ContentModal = ({ content, isOpen, onClose }) => {
                 {/* Related Stories */}
                 {relatedStories.length > 0 && (
                   <div className="modal-related">
-                    <h3 className="modal-related-title">Articles suggérés</h3>
+                    <h3 className="modal-related-title">Contenus suggérés</h3>
                     <div className="modal-related-grid">
                       {relatedStories.map((story) => (
                         <div
                           key={story.id}
-                          className="modal-related-item"
+                          className={`modal-related-item ${story.type === 'video' || story.type === 'audio' ? 'modal-related-item-media' : ''}`}
+                          data-type={story.type}
                           onClick={() => {
                             onClose();
                             setTimeout(() => window.location.reload(), 100);
                           }}
                         >
-                          <img
-                            src={story.image}
-                            alt={story.title}
-                            className="modal-related-image"
-                            loading="lazy"
-                          />
+                          <div className="modal-related-image-wrapper">
+                            <img
+                              src={story.image}
+                              alt={story.title}
+                              className="modal-related-image"
+                              loading="lazy"
+                            />
+                            {story.type === 'video' && (
+                              <div className="modal-related-media-badge">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                              </div>
+                            )}
+                            {story.type === 'audio' && (
+                              <div className="modal-related-media-badge">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                  <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                                  <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+                                </svg>
+                              </div>
+                            )}
+                          </div>
                           <div className="modal-related-content">
                             <span
                               className="modal-related-category"

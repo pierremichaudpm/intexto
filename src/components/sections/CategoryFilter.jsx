@@ -18,6 +18,11 @@ const CategoryFilter = ({ activeCategory, onCategoryChange }) => {
   return (
     <div className="category-filter">
       <div className="category-filter-container">
+        <img
+          src="/Images/intextologo2.png"
+          alt="Intexto"
+          className="category-filter-logo"
+        />
         {categories.map((category) => (
           <motion.button
             key={category.id}

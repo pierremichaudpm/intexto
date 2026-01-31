@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 
-const Header = ({ onSearchClick, adBanner }) => {
+const Header = ({ onSearchClick, adBanner, hideSearch = false }) => {
   return (
     <motion.header
       initial={{ y: -100 }}
@@ -21,11 +21,13 @@ const Header = ({ onSearchClick, adBanner }) => {
         {/* Ad banner in center on desktop */}
         <div className="header-ad-slot">{adBanner}</div>
 
-        <div className="header-actions">
-          <button className="search-btn" onClick={onSearchClick}>
-            <Search size={20} />
-          </button>
-        </div>
+        {!hideSearch && (
+          <div className="header-actions">
+            <button className="search-btn" onClick={onSearchClick}>
+              <Search size={20} />
+            </button>
+          </div>
+        )}
       </div>
     </motion.header>
   );
